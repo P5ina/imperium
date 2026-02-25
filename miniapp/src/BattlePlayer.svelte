@@ -5,7 +5,7 @@
 
   const API_URL = window.location.origin.includes('localhost')
     ? 'http://localhost:8090'
-    : window.location.origin.replace(/:\d+$/, ':8090');
+    : `${window.location.origin}/imperium-api`;
 
   let battleLog = $state(null);
   let currentEntryIdx = $state(-1);

@@ -185,7 +185,7 @@ func loadUserDeck(userID int64) ([]models.BattleCard, error) {
 	var idCounter int64
 	for rows.Next() {
 		idCounter++
-		var dbID int64
+		var dbID string
 		var cardID, name, rarity string
 		var baseHP, baseDamage int
 		var effectsRaw json.RawMessage

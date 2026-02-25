@@ -1,25 +1,27 @@
 <script>
   import { onMount } from 'svelte';
 
-  export let battleId;
+  let { battleId } = $props();
 
-  const API_URL = window.location.origin.includes('localhost')
-    ? 'http://localhost:8090'
-    : `${window.location.origin}/imperium-api`;
+  const API_URL = window.location.origin + '/imperium-api';
 
-  let battleLog = null;
-  let currentEntryIdx = -1;
-  let error = null;
-  let done = false;
-  let flashCardId = null;
-  let dyingCardId = null;
-  let attackerDeck = [];
-  let defenderDeck = [];
+  let battleLog = $state(null);
+  let currentEntryIdx = $state(-1);
+  let error = $state(null);
+  let done = $state(false);
+  let flashCardId = $state(null);
+  let dyingCardId = $state(null);
+  let attackerDeck = $state([]);
+  let defenderDeck = $state([]);
 
   const RARITY_COLORS = {
     common: '#888', uncommon: '#4caf50', rare: '#2196f3',
     epic: '#9c27b0', legendary: '#ff9800',
   };
+
+  let entry = $derived(
+    battleLog && currentEntryIdx >= 0 ? battleLog.entries[currentEntryIdx] : null
+  );
 
   onMount(async () => {
     try {
@@ -43,9 +45,9 @@
       return;
     }
     currentEntryIdx = idx;
-    const entry = battleLog.entries[idx];
+    const ent = battleLog.entries[idx];
 
-    for (const action of entry.actions) {
+    for (const action of ent.actions) {
       if (action.type === 'attack' && action.defender_id != null) {
         flashCardId = action.defender_id;
         setTimeout(() => { flashCardId = null; }, 350);
@@ -56,8 +58,8 @@
       }
     }
 
-    attackerDeck = entry.attacker_deck || [];
-    defenderDeck = entry.defender_deck || [];
+    attackerDeck = ent.attacker_deck || [];
+    defenderDeck = ent.defender_deck || [];
 
     setTimeout(() => processEntry(idx + 1), 900);
   }
@@ -65,8 +67,6 @@
   function hpPct(hp, max) {
     return Math.max(0, Math.min(100, (hp / Math.max(max, 1)) * 100));
   }
-
-  $: entry = battleLog && currentEntryIdx >= 0 ? battleLog.entries[currentEntryIdx] : null;
 </script>
 
 <div class="player">

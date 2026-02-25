@@ -1,3 +1,4 @@
+import { mount } from 'svelte';
 import App from './App.svelte';
 
 if (window.Telegram?.WebApp) {
@@ -5,4 +6,4 @@ if (window.Telegram?.WebApp) {
   window.Telegram.WebApp.expand();
 }
 
-new App({ target: document.getElementById('app') });
+mount(App, { target: document.getElementById('app') });

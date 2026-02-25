@@ -17,9 +17,7 @@ jobs:
           script: |
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            cd ~/projects/imperium
-            git pull origin master
-            docker compose build
-            docker compose up -d
-            cd miniapp && npm ci && npx vite build
-            cp -r dist/* /var/www/imperium/
+            cd ~/projects/imperium && git pull origin master
+            docker compose build && docker compose up -d
+            cd ~/projects/imperium/miniapp && npm ci && npx vite build
+            cp -r ~/projects/imperium/miniapp/dist/* /var/www/imperium/

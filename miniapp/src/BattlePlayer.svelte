@@ -321,6 +321,7 @@
       <!-- Attacker column -->
       <div class="column">
         <div class="side-label attacker-label">⚔️ АТК</div>
+        <div class="deck-stack">
         {#each attackerDeck as card, i (card.id)}
           {@const isFront = i === 0}
           {@const key = cardKey(card.id, 'attacker')}
@@ -385,6 +386,7 @@
         {#if attackerDeck.length === 0}
           <div class="empty-slot">—</div>
         {/if}
+        </div>
       </div>
 
       <!-- VS divider -->
@@ -397,6 +399,7 @@
       <!-- Defender column -->
       <div class="column">
         <div class="side-label defender-label">🛡 ЗАЩ</div>
+        <div class="deck-stack">
         {#each defenderDeck as card, i (card.id)}
           {@const isFront = i === 0}
           {@const key = cardKey(card.id, 'defender')}
@@ -455,6 +458,7 @@
         {#if defenderDeck.length === 0}
           <div class="empty-slot">—</div>
         {/if}
+        </div>
       </div>
     </div>
 
@@ -607,6 +611,14 @@
     flex-direction: column;
     align-items: center;
     gap: 8px;
+  }
+
+  .deck-stack {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
   }
 
   /* ===== Side labels ===== */

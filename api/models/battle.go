@@ -8,7 +8,7 @@ type Battle struct {
 	DefenderID *int64     `json:"defender_id,omitempty"`
 	WinnerID   *int64     `json:"winner_id,omitempty"`
 	BattleLog  *BattleLog `json:"battle_log,omitempty"`
-	CreatedAt  string     `json:"created_at"`
+	CreatedAt  time.Time     `json:"created_at"`
 }
 
 type BattleLog struct {

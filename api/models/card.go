@@ -1,6 +1,9 @@
 package models
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"time"
+)
 
 type CardDefinition struct {
 	ID             string   `json:"id"`
@@ -21,7 +24,7 @@ type UserCard struct {
 	Quality           int             `json:"quality"`
 	CurrentHP         int             `json:"current_hp"`
 	CurrentDurability int             `json:"current_durability"`
-	CreatedAt         string          `json:"created_at"`
+	CreatedAt         time.Time          `json:"created_at"`
 	Definition        *CardDefinition `json:"definition,omitempty"`
 }
 

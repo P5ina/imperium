@@ -1,15 +1,21 @@
-import { defineConfig } from 'vite';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { svelte } from "@sveltejs/vite-plugin-svelte";
+import { defineConfig } from "vite";
 
 export default defineConfig({
-  plugins: [svelte()],
-  base: '/app/',
-  server: {
-    port: 5173,
+  plugins: [
+    svelte({
+      compilerOptions: {
+        generate: "client",
+      },
+    }),
+  ],
+  base: "/app/",
+  build: {
+    rollupOptions: {
+      external: [],
+    },
   },
   resolve: {
-    alias: {
-      'node:async_hooks': '/dev/null',
-    },
+    conditions: ["browser", "import"],
   },
 });
